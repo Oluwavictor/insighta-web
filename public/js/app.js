@@ -265,26 +265,23 @@
 	  `;
 	}
   
-	// ── Pagination
+	// Pagination
 	function renderPagination(containerId, currentPage, totalPages, onPageChange) {
 	  const container = document.getElementById(containerId);
-	  if (!container || totalPages <= 1) return;
-  
-	  const existing = container.parentNode.querySelector(".pagination");
-	  if (existing) existing.remove();
-  
-	  const paginationEl = document.createElement("div");
-	  paginationEl.className = "pagination";
+	
+	   if (!container) return;
+
+	   container.innerHTML = "";
+	 
+	   if (!totalPages || totalPages <= 1) return;
   
 	  for (let i = 1; i <= totalPages; i++) {
 		const btn = document.createElement("button");
 		btn.className = `page-btn${i === currentPage ? " active" : ""}`;
 		btn.textContent = i;
 		btn.addEventListener("click", () => onPageChange(i));
-		paginationEl.appendChild(btn);
+		container.appendChild(btn);
 	  }
-  
-	  container.parentNode.insertBefore(paginationEl, container.nextSibling);
 	}
   
 	//Event Listeners
