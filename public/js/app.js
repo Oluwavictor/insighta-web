@@ -267,22 +267,82 @@
   
 	// Pagination
 	function renderPagination(containerId, currentPage, totalPages, onPageChange) {
-	  const container = document.getElementById(containerId);
-	
-	   if (!container) return;
-
-	   container.innerHTML = "";
-	 
-	   if (!totalPages || totalPages <= 1) return;
-  
-	  for (let i = 1; i <= totalPages; i++) {
-		const btn = document.createElement("button");
-		btn.className = `page-btn${i === currentPage ? " active" : ""}`;
-		btn.textContent = i;
-		btn.addEventListener("click", () => onPageChange(i));
-		container.appendChild(btn);
+		const container = document.getElementById(containerId);
+	  
+		if (!container) return;
+	  
+		container.innerHTML = "";
+	  
+		if (!totalPages || totalPages <= 1) return;
+	  
+		function makeBtn(label, page, disabled = false, isActive = false) {
+		  const btn = document.createElement("button");
+		  btn.className = "page-btn";
+		  if (isActive) btn.classList.add("active");
+		  if (disabled) btn.classList.add("disabled");
+		  btn.textContent = label;
+		  btn.disabled = disabled;
+		  if (!disabled) {
+			btn.addEventListener("click", () => onPageChange(page));
+		  }
+		  return btn;
+		}
+	  
+		// First Button
+		container.appendChild(makeBtn("« First", 1, currentPage === 1));
+	  
+		// Back Button
+		container.appendChild(makeBtn("‹ Back", currentPage - 1, currentPage === 1));
+	  
+		// Page Number Buttons (max 10 visible)
+		const maxVisible = 10;
+		let startPage, endPage;
+	  
+		if (totalPages <= maxVisible) {
+		  // Show all pages
+		  startPage = 1;
+		  endPage = totalPages;
+		} else {
+		  // Try to center current page
+		  const half = Math.floor(maxVisible / 2);
+		  startPage = currentPage - half;
+		  endPage = currentPage + half - 1;
+	  
+		  // range
+		  if (startPage < 1) {
+			startPage = 1;
+			endPage = maxVisible;
+		  }
+		  if (endPage > totalPages) {
+			endPage = totalPages;
+			startPage = totalPages - maxVisible + 1;
+		  }
+		}
+	  
+		// Leading ellipsis
+		if (startPage > 1) {
+		  container.appendChild(makeBtn("...", null, true));
+		}
+	  
+		for (let i = startPage; i <= endPage; i++) {
+		  container.appendChild(makeBtn(i, i, false, i === currentPage));
+		}
+	  
+		// Trailing ellipsis
+		if (endPage < totalPages) {
+		  container.appendChild(makeBtn("...", null, true));
+		}
+	  
+		// Forward Button
+		container.appendChild(
+		  makeBtn("Forward ›", currentPage + 1, currentPage === totalPages)
+		);
+	  
+		// Last Button
+		container.appendChild(
+		  makeBtn("Last »", totalPages, currentPage === totalPages)
+		);
 	  }
-	}
   
 	//Event Listeners
 	document.getElementById("logout-btn").addEventListener("click", logout);
