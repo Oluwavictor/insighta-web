@@ -1,0 +1,20 @@
+[build]
+  publish = "public"
+  command = "echo 'Static site'"
+
+[[redirects]]
+  from = "/auth/*"
+  to = "https://insightlab-productions.up.railway.app/auth/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://insightlab-productions.up.railway.app/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

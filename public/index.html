@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insighta Labs+</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="page-login" class="page">
+      <div class="auth-card">
+        <h1>Insighta Labs+</h1>
+        <p>Demographic Intelligence Platform</p>
+        <a href="/auth/github?source=web" class="btn btn-github">
+          Continue with GitHub
+        </a>
+      </div>
+    </div>
+
+    <div id="page-dashboard" class="page hidden">
+      <nav class="navbar">
+        <span class="nav-brand">Insighta Labs+</span>
+        <div class="nav-links">
+          <a href="#" data-page="dashboard">Dashboard</a>
+          <a href="#" data-page="profiles">Profiles</a>
+          <a href="#" data-page="search">Search</a>
+          <a href="#" data-page="account">Account</a>
+          <button id="logout-btn" class="btn btn-sm">Logout</button>
+        </div>
+      </nav>
+
+      <main id="main-content">
+
+        <!-- Dashboard Page -->
+        <section id="section-dashboard" class="section">
+          <h2>Dashboard</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="stat-total">—</div>
+              <div class="stat-label">Total Profiles</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="stat-male">—</div>
+              <div class="stat-label">Male</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="stat-female">—</div>
+              <div class="stat-label">Female</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Profiles Page -->
+        <section id="section-profiles" class="section hidden">
+          <h2>Profiles</h2>
+          <div class="filter-bar">
+            <select id="filter-gender">
+              <option value="">All genders</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+            <select id="filter-age-group">
+              <option value="">All age groups</option>
+              <option value="child">Child</option>
+              <option value="teenager">Teenager</option>
+              <option value="adult">Adult</option>
+              <option value="senior">Senior</option>
+            </select>
+            <input id="filter-country" type="text" placeholder="Country ID (e.g. NG)" maxlength="2" />
+            <input id="filter-min-age" type="number" placeholder="Min age" min="0" />
+            <input id="filter-max-age" type="number" placeholder="Max age" min="0" />
+            <button id="apply-filters" class="btn">Apply</button>
+            <a id="export-csv" href="#" class="btn btn-secondary">Export CSV</a>
+          </div>
+          <div id="profiles-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Gender</th>
+                  <th>Age</th>
+                  <th>Age Group</th>
+                  <th>Country</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="profiles-tbody"></tbody>
+            </table>
+          </div>
+          <div class="pagination" id="profiles-pagination"></div>
+        </section>
+
+        <!-- Profile Detail -->
+        <section id="section-profile-detail" class="section hidden">
+          <button id="back-to-profiles" class="btn btn-secondary">← Back</button>
+          <div id="profile-detail-content"></div>
+        </section>
+
+        <!-- Search Page -->
+        <section id="section-search" class="section hidden">
+          <h2>Natural Language Search</h2>
+          <div class="search-bar">
+            <input
+              id="nlq-input"
+              type="text"
+              placeholder='e.g. "young males from nigeria"'
+            />
+            <button id="nlq-search" class="btn">Search</button>
+          </div>
+          <div id="search-results"></div>
+        </section>
+
+        <!-- Account Page -->
+        <section id="section-account" class="section hidden">
+          <h2>Account</h2>
+          <div id="account-info"></div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
